@@ -1,0 +1,13 @@
+browser
+browser_gobj
+Math/test
+*.d
+*.o
+*.lo
+*~
+nbproject/*
+.ccls-cache/*
+CMakeFiles/*
+project_libjpeg6b-6b-prefix/*
+libjpeg6b-6b-prefix/*
+libjpeg6b-6b/*
