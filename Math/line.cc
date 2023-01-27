@@ -23,7 +23,13 @@ Line & Line::operator=(const Line & line) {
 
 void Line::setFromAtoB(const Vector3 & A, const Vector3 & B) {
 	/* =================== PUT YOUR CODE HERE ====================== */
-
+	m_O= A; //Punto de origen
+	m_d= B-A; // Vector entre los puntos
+	float modVec =m_d.length(); // Módulo del vector
+	if (modVec < Constants::distance_epsilon){ //ver si el vector tiene un módulo mer a la distancia minima establecida en .../Misc/constants 
+		printf("Los dos puntos estan muy cerca, puedes obtener rescultados no esperados \n");
+	}
+	m_d.normalize();//vector director unictario
 	/* =================== END YOUR CODE HERE ====================== */
 }
 
@@ -32,7 +38,7 @@ void Line::setFromAtoB(const Vector3 & A, const Vector3 & B) {
 Vector3 Line::at(float u) const {
 	Vector3 res;
 	/* =================== PUT YOUR CODE HERE ====================== */
-
+	res= m_O+ u*m_d; // Calcula el puntos de la recta en notación paramétrica
 	/* =================== END YOUR CODE HERE ====================== */
 	return res;
 }
@@ -44,7 +50,18 @@ Vector3 Line::at(float u) const {
 float Line::paramDistance(const Vector3 & P) const {
 	float res = 0.0f;
 	/* =================== PUT YOUR CODE HERE ====================== */
+	float denominador= m_d.dot(m_d);
+	if (denominador< Constants::distance_epsilon){
+		printf ("Oye que es 0 \n"); 
+		res= 0.0f;
+	}
 
+	else{
+		float numerador = m_d.dot(P-m_O),
+		denominador=m_d.dot(m_d);
+		res= numerador/denominador;
+
+	}
 	/* =================== END YOUR CODE HERE ====================== */
 	return res;
 }
@@ -57,7 +74,9 @@ float Line::paramDistance(const Vector3 & P) const {
 float Line::distance(const Vector3 & P) const {
 	float res = 0.0f;
 	/* =================== PUT YOUR CODE HERE ====================== */
-
+	float u0= paramDistance(P);
+	Vector3 vecProy= P - this->at(u0);
+	res= vecProy.length();
 	/* =================== END YOUR CODE HERE ====================== */
 	return res;
 }
