@@ -2,6 +2,7 @@
 #include "intersect.h"
 #include "constants.h"
 #include "tools.h"
+#include "plane.h"
 
 /* | algo           | difficulty | */
 /* |----------------+------------| */
@@ -17,7 +18,20 @@
 
 int BSpherePlaneIntersect(const BSphere *bs, Plane *pl) {
 	/* =================== PUT YOUR CODE HERE ====================== */
-
+	float distanciaEP= pl->signedDistance(bs->m_centre);
+	float absDist= fabs(distanciaEP);
+	if(absDist<=bs->m_radius){
+		return IINTERSECT;
+	}
+	else{
+		if(pl->whichSide(bs->m_centre)){
+			return -IREJECT;
+		}
+		else{
+			return +IREJECT;
+		}
+		
+	}
 	/* =================== END YOUR CODE HERE ====================== */
 }
 
