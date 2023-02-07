@@ -24,7 +24,7 @@ int BSpherePlaneIntersect(const BSphere *bs, Plane *pl) {
 		return IINTERSECT;
 	}
 	else{
-		if(pl->whichSide(bs->m_centre)){
+		if(pl->whichSide(bs->m_centre)<0){//distanciaEP<0
 			return -IREJECT;
 		}
 		else{
