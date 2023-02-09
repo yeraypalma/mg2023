@@ -43,6 +43,14 @@ int BSpherePlaneIntersect(const BSphere *bs, Plane *pl) {
 
 int  BBoxBBoxIntersect(const BBox *bba, const BBox *bbb ) {
 	/* =================== PUT YOUR CODE HERE ====================== */
+	if(!((bba->m_min[0]>bbb->m_max[0])||(bba->m_max[0]<bbb->m_min[0]))){
+		if(!((bba->m_min[1]>bbb->m_max[1])||(bba->m_max[1]<bbb->m_min[1]))){
+			if(!((bba->m_min[2]>bbb->m_max[2])||(bba->m_max[2]<bbb->m_min[2]))){
+				return IINTERSECT;
+			}
+		}
+	}
+	return IREJECT;
 
 	/* =================== END YOUR CODE HERE ====================== */
 }
