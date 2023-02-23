@@ -268,17 +268,22 @@ Node * Node::cycleChild(size_t idx) {
 
 void Node::addChild(Node *theChild) {
 	if (theChild == 0) return;
-	if (m_gObject) {
-		/* =================== PUT YOUR CODE HERE ====================== */
+	if (m_gObject) {/*es un puntero a un objeto de clase objeto si 
+	es 0 no hay si es cualquier otra cosa es true*/
+	/* =================== PUT YOUR CODE HERE ====================== */
+		//apunta a un objeto
+		printf("Se trata de una hoja y no se le pueden añadir hijos");
+		
 		// node has a gObject, so print warning
 
 		/* =================== END YOUR CODE HERE ====================== */
-	} else {
+	} else { //no es una hoja
 		/* =================== PUT YOUR CODE HERE ====================== */
-		// node does not have gObject, so attach child
-
+		/*Añadimos el hijo a la lista de hijos del padre(el padre es this)*/
+		this->m_children.push_back(theChild);//push_back para añadir
+		/*Añadir al padre en el hijo*/
+		theChild->m_parent= this;
 		/* =================== END YOUR CODE HERE ====================== */
-
 	}
 }
 
@@ -420,7 +425,20 @@ void Node::draw() {
 		BBoxGL::draw( m_containerWC);
 	}
 	/* =================== PUT YOUR CODE HERE ====================== */
+	rs->push(RenderState::modelview); // push current matrix into modelview stack
+	// T es la transformación asociada al nodo
+	rs->addTrfm(RenderState::modelview, m_placement);//mete la transformación del nodo en el que estamos
+	
+	if(m_gObject){ //en caso de ser hoja-->dibujar
+		m_gObject->draw();
+	}
+	else{
+		for (auto n: m_children){
+			n->draw();
+		}
+	}
 
+	rs->pop(RenderState::modelview); // pop matrix from modelview stack to current
 	/* =================== END YOUR CODE HERE ====================== */
 
 	if (prev_shader != 0) {
