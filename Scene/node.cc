@@ -366,7 +366,20 @@ void Node::updateBB () {
 
 void Node::updateWC() {
 	/* =================== PUT YOUR CODE HERE ====================== */
+	if(!this->m_parent){//si devuelve 0 significa que no tiene padre y por tanto es ROOT
+		m_placementWC=this->m_placement;
+	}
+	else{
+		m_placementWC->clone(m_parent->m_placementWC);//clonamos la matriz del padre
+		m_placementWC->add(m_placement);//la multiplicamos
+		if(!m_gObject){//si no es nodo hoja
+			for (auto n: m_children){//llamada recursiva
+			n->updateWC();//actualizamos la matriz WC de los hijos
+		}
+		}
+		
 
+	}
 	/* =================== END YOUR CODE HERE ====================== */
 }
 
@@ -380,7 +393,8 @@ void Node::updateWC() {
 
 void Node::updateGS() {
 	/* =================== PUT YOUR CODE HERE ====================== */
-
+	updateWC();
+	propagateBBRoot();
 	/* =================== END YOUR CODE HERE ====================== */
 }
 
