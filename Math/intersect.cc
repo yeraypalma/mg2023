@@ -63,7 +63,48 @@ int  BBoxBBoxIntersect(const BBox *bba, const BBox *bbb ) {
 
 int  BBoxPlaneIntersect (const BBox *theBBox, Plane *thePlane) {
 	/* =================== PUT YOUR CODE HERE ====================== */
+	Vector3 vertices[8];
 
+	vertices[0]={theBBox->m_min[0], theBBox->m_min[1], theBBox->m_min[2]};
+	vertices[1]={theBBox->m_max[0], theBBox->m_min[1], theBBox->m_min[2]};
+	vertices[2]={theBBox->m_min[0], theBBox->m_max[1], theBBox->m_min[2]};
+	vertices[3]={theBBox->m_min[0], theBBox->m_min[1], theBBox->m_max[2]};
+	vertices[4]={theBBox->m_max[0], theBBox->m_max[1], theBBox->m_min[2]};
+	vertices[5]={theBBox->m_max[0], theBBox->m_min[1], theBBox->m_max[2]};
+	vertices[6]={theBBox->m_min[0], theBBox->m_max[1], theBBox->m_max[2]};
+	vertices[7]={theBBox->m_max[0], theBBox->m_max[1], theBBox->m_max[2]};
+
+	int porEncima= 0;
+	int porDebajo= 0;
+
+	for(int i=0;i<8;i++){
+		if(thePlane->signedDistance(vertices[i])>0){
+			porEncima= 1;
+		}
+		else{
+			porDebajo= 1;
+		}
+
+		if(porDebajo==1 && porEncima==1){
+			return IINTERSECT;
+		}
+	}
+	return IREJECT;
+
+
+
+
+	/*for(int i=0;i<8;i++){
+		int n=0;
+		for(int j=0;j<3;j++){
+			if(i%2==0){
+				vertices[i][j]=theBBox.m_max[j];
+			}
+			else{
+				vertices[i][j]=theBBox.m_min[j];
+			}
+		}
+	}*/
 	/* =================== END YOUR CODE HERE ====================== */
 }
 
