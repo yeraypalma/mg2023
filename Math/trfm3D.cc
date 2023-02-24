@@ -47,9 +47,13 @@ void Trfm3D::clone( const Trfm3D *T ) {	clone(*T); }
 Vector3 Trfm3D::transformPoint(const Vector3 & P) const {
 	Vector3 res;
 	/* =================== PUT YOUR CODE HERE ====================== */
-	res[0]= (m_c1.x() * P.x() * m_scl) + (m_c2.x() * P.y() * m_scl) + (m_c3.x() * P.z() * m_scl) + (m_tr.x();
+	/*res[0]= (m_c1.x() * P.x() * m_scl) + (m_c2.x() * P.y() * m_scl) + (m_c3.x() * P.z() * m_scl) + (m_tr.x());
 	res[1]= (m_c1.y() * P.x() * m_scl) + (m_c2.y() * P.y() * m_scl) + (m_c3.y() * P.z() * m_scl) + (m_tr.y());
-	res[2]= (m_c1.z() * P.x() * m_scl) + (m_c2.z() * P.y() * m_scl) + (m_c3.z() * P.z() * m_scl) + (m_tr.z());
+	res[2]= (m_c1.z() * P.x() * m_scl) + (m_c2.z() * P.y() * m_scl) + (m_c3.z() * P.z() * m_scl) + (m_tr.z());*/
+
+	res[0]= m_c1[0] * P[0] * m_scl + m_c2[0] * P[1] * m_scl + m_c3[0] * P[2] * m_scl + m_tr[0];
+	res[1]= m_c1[1] * P[0] * m_scl + m_c2[1] * P[1] * m_scl + m_c3[1] * P[2] * m_scl + m_tr[1];
+	res[2]= m_c1[2] * P[0] * m_scl + m_c2[2] * P[1] * m_scl + m_c3[2] * P[2] * m_scl + m_tr[2];
 	/* =================== END YOUR CODE HERE ====================== */
 	return 	res;
 }
@@ -64,12 +68,11 @@ Vector3 Trfm3D::transformPoint(const Vector3 & P) const {
 
 Vector3 Trfm3D::transformVector(const Vector3 & V) const {
 	Vector3 res;
-	res[0]= (m_c1.x() * V.x() * m_scl) + (m_c2.x() * V.y() * m_scl) + (m_c3.x() * V.z() * m_scl);
-	res[1]= (m_c1.y() * V.x() * m_scl) + (m_c2.y() * V.y() * m_scl) + (m_c3.y() * V.z() * m_scl);
-	res[2]= (m_c1.z() * V.x() * m_scl) + (m_c2.z() * V.y() * m_scl) + (m_c3.z() * V.z() * m_scl);
+		/* =================== PUT YOUR CODE HERE ====================== */
+	res[0]= m_c1[0] * V[0] * m_scl + m_c2[0] * V[1] * m_scl + m_c3[0] * V[2] * m_scl;
+	res[1]= m_c1[1] * V[0] * m_scl + m_c2[1] * V[1] * m_scl + m_c3[1] * V[2] * m_scl;
+	res[2]= m_c1[2] * V[0] * m_scl + m_c2[2] * V[1] * m_scl + m_c3[2] * V[2] * m_scl;
 
-	/* =================== PUT YOUR CODE HERE ====================== */
-	
 	/* =================== END YOUR CODE HERE ====================== */
 	return res;
 }
@@ -424,7 +427,7 @@ void Trfm3D::setScale(float scale ) {
 
 void Trfm3D::setRotAxis(const Vector3 & V, const Vector3 & P, float angle ) {
 	/* =================== PUT YOUR CODE HERE ====================== */
-	this->setTrans(P);
+	this-> setTrans(P);
 	this-> addRotVec(V, angle);
 	this-> addTrans((-1)*P);
 	/* =================== END YOUR CODE HERE ====================== */

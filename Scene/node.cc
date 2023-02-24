@@ -272,17 +272,17 @@ void Node::addChild(Node *theChild) {
 	es 0 no hay si es cualquier otra cosa es true*/
 	/* =================== PUT YOUR CODE HERE ====================== */
 		//apunta a un objeto
-		printf("Se trata de una hoja y no se le pueden añadir hijos");
-		
 		// node has a gObject, so print warning
-
+		printf("Se trata de una hoja y no se le pueden añadir hijos");
 		/* =================== END YOUR CODE HERE ====================== */
-	} else { //no es una hoja
+	} 
+	else { //no es una hoja
 		/* =================== PUT YOUR CODE HERE ====================== */
 		/*Añadimos el hijo a la lista de hijos del padre(el padre es this)*/
 		this->m_children.push_back(theChild);//push_back para añadir
 		/*Añadir al padre en el hijo*/
 		theChild->m_parent= this;
+		updateGS();
 		/* =================== END YOUR CODE HERE ====================== */
 	}
 }
@@ -374,8 +374,8 @@ void Node::updateWC() {
 		m_placementWC->add(m_placement);//la multiplicamos
 		if(!m_gObject){//si no es nodo hoja
 			for (auto n: m_children){//llamada recursiva
-			n->updateWC();//actualizamos la matriz WC de los hijos
-		}
+				n->updateWC();//actualizamos la matriz WC de los hijos
+			}
 		}
 		
 

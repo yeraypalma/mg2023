@@ -43,7 +43,10 @@ bool Avatar::advance(float step) {
 
 	Node *rootNode = Scene::instance()->rootNode();
 	/* =================== PUT YOUR CODE HERE ====================== */
-
+	if (m_walk)
+        m_cam->walk(step);
+    else
+        m_cam->fly(step);
 	/* =================== END YOUR CODE HERE ====================== */
 	// no collision
 	return true;
