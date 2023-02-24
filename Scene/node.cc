@@ -365,7 +365,7 @@ void Node::updateBB () {
 //    iterate through children.
 
 void Node::updateWC() {
-	/* =================== PUT YOUR CODE HERE ====================== */
+	 /*=================== PUT YOUR CODE HERE ====================== */
 	if(!this->m_parent){//si devuelve 0 significa que no tiene padre y por tanto es ROOT
 		m_placementWC=this->m_placement;
 	}
