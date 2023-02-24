@@ -90,21 +90,6 @@ int  BBoxPlaneIntersect (const BBox *theBBox, Plane *thePlane) {
 		}
 	}
 	return IREJECT;
-
-
-
-
-	/*for(int i=0;i<8;i++){
-		int n=0;
-		for(int j=0;j<3;j++){
-			if(i%2==0){
-				vertices[i][j]=theBBox.m_max[j];
-			}
-			else{
-				vertices[i][j]=theBBox.m_min[j];
-			}
-		}
-	}*/
 	/* =================== END YOUR CODE HERE ====================== */
 }
 

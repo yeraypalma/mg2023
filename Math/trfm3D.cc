@@ -47,9 +47,9 @@ void Trfm3D::clone( const Trfm3D *T ) {	clone(*T); }
 Vector3 Trfm3D::transformPoint(const Vector3 & P) const {
 	Vector3 res;
 	/* =================== PUT YOUR CODE HERE ====================== */
-	res[0]= (m_c1.x() * P.x() * m_scl) + (m_c2.x() * P.y() * m_scl) + (m_c3.x() * P.z() * m_scl);
-	res[1]= (m_c1.y() * P.x() * m_scl) + (m_c2.y() * P.y() * m_scl) + (m_c3.y() * P.z() * m_scl);
-	res[2]= (m_c1.z() * P.x() * m_scl) + (m_c2.z() * P.y() * m_scl) + (m_c3.z() * P.z() * m_scl);
+	res[0]= (m_c1.x() * P.x() * m_scl) + (m_c2.x() * P.y() * m_scl) + (m_c3.x() * P.z() * m_scl) + (m_tr.x();
+	res[1]= (m_c1.y() * P.x() * m_scl) + (m_c2.y() * P.y() * m_scl) + (m_c3.y() * P.z() * m_scl) + (m_tr.y());
+	res[2]= (m_c1.z() * P.x() * m_scl) + (m_c2.z() * P.y() * m_scl) + (m_c3.z() * P.z() * m_scl) + (m_tr.z());
 	/* =================== END YOUR CODE HERE ====================== */
 	return 	res;
 }
@@ -426,7 +426,7 @@ void Trfm3D::setRotAxis(const Vector3 & V, const Vector3 & P, float angle ) {
 	/* =================== PUT YOUR CODE HERE ====================== */
 	this->setTrans(P);
 	this-> addRotVec(V, angle);
-	this-> addTrans(-1*P);
+	this-> addTrans((-1)*P);
 	/* =================== END YOUR CODE HERE ====================== */
 }
 
