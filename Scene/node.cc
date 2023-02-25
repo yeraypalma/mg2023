@@ -314,7 +314,13 @@ void Node::detach() {
 
 void Node::propagateBBRoot() {
 	/* =================== PUT YOUR CODE HERE ====================== */
-
+	if(m_parent){//no es root
+		updateBB();
+		m_parent->propagateBBRoot();
+	}
+	else{ //en caso de que sea root 
+		m_containerWC->transform(this->m_placement);
+	}
 	/* =================== END YOUR CODE HERE ====================== */
 }
 
@@ -347,7 +353,23 @@ void Node::propagateBBRoot() {
 
 void Node::updateBB () {
 	/* =================== PUT YOUR CODE HERE ====================== */
+	if(m_gObject){// si es nodo hoja
+			m_containerWC->clone(m_gObject->getContainer());
+			m_containerWC->transform(m_placementWC);
 
+	}
+
+	else{//nodo intermedio
+		m_containerWC->init();
+		for (auto & n: m_children){
+			m_containerWC->include(n->m_containerWC);
+		}
+	}
+	
+
+	
+
+	
 	/* =================== END YOUR CODE HERE ====================== */
 }
 
@@ -370,23 +392,7 @@ void Node::updateBB () {
 
 void Node::updateWC() {
 	 /*=================== PUT YOUR CODE HERE ====================== */
-	
-	/*if(this->m_parent){//si devuelve 0 significa que no tiene padre y por tanto es ROOT
-		m_placementWC=this->m_placement;
-	}
-	else{
-		m_placementWC->clone(m_parent->m_placementWC);//clonamos la matriz del padre
-		m_placementWC->add(m_placement);//la multiplicamos
-	}
-		
-	for (auto n: m_children){//llamada recursiva
-		n->updateWC();//actualizamos la matriz WC de los hijos
-	}*/
-	
 
-
-
-	
 	if(this->m_parent==0){//si devuelve 0 significa que no tiene padre y por tanto es ROOT
 		m_placementWC->clone(this->m_placement);
 	}
@@ -402,18 +408,6 @@ void Node::updateWC() {
 
 	}
 
-	/*if(this->m_parent!=0){//si devuelve 0 significa que no tiene padre y por tanto es ROOT
-		m_placementWC->clone(m_parent->m_placementWC);//clonamos la matriz del padre
-		m_placementWC->add(m_placement);//la multiplicamos
-	}
-	
-	for (auto n: m_children){//llamada recursiva
-				n->updateWC();//actualizamos la matriz WC de los hijos
-	}*/
-		
-		
-
-	
 	/* =================== END YOUR CODE HERE ====================== */
 }
 
