@@ -279,10 +279,14 @@ void Node::addChild(Node *theChild) {
 	else { //no es una hoja
 		/* =================== PUT YOUR CODE HERE ====================== */
 		/*Añadimos el hijo a la lista de hijos del padre(el padre es this)*/
-		this->m_children.push_back(theChild);//push_back para añadir
+		
+
 		/*Añadir al padre en el hijo*/
 		theChild->m_parent= this;
-		updateGS();
+		theChild->m_placementWC->clone(this->m_placementWC);
+		theChild->m_placementWC->add(theChild->m_placement);
+		theChild->updateGS();
+		this->m_children.push_back(theChild);//push_back para añadir
 		/* =================== END YOUR CODE HERE ====================== */
 	}
 }
@@ -366,8 +370,25 @@ void Node::updateBB () {
 
 void Node::updateWC() {
 	 /*=================== PUT YOUR CODE HERE ====================== */
-	if(!this->m_parent){//si devuelve 0 significa que no tiene padre y por tanto es ROOT
+	
+	/*if(this->m_parent){//si devuelve 0 significa que no tiene padre y por tanto es ROOT
 		m_placementWC=this->m_placement;
+	}
+	else{
+		m_placementWC->clone(m_parent->m_placementWC);//clonamos la matriz del padre
+		m_placementWC->add(m_placement);//la multiplicamos
+	}
+		
+	for (auto n: m_children){//llamada recursiva
+		n->updateWC();//actualizamos la matriz WC de los hijos
+	}*/
+	
+
+
+
+	
+	if(this->m_parent==0){//si devuelve 0 significa que no tiene padre y por tanto es ROOT
+		m_placementWC->clone(this->m_placement);
 	}
 	else{
 		m_placementWC->clone(m_parent->m_placementWC);//clonamos la matriz del padre
@@ -380,6 +401,19 @@ void Node::updateWC() {
 		
 
 	}
+
+	/*if(this->m_parent!=0){//si devuelve 0 significa que no tiene padre y por tanto es ROOT
+		m_placementWC->clone(m_parent->m_placementWC);//clonamos la matriz del padre
+		m_placementWC->add(m_placement);//la multiplicamos
+	}
+	
+	for (auto n: m_children){//llamada recursiva
+				n->updateWC();//actualizamos la matriz WC de los hijos
+	}*/
+		
+		
+
+	
 	/* =================== END YOUR CODE HERE ====================== */
 }
 
@@ -393,8 +427,9 @@ void Node::updateWC() {
 
 void Node::updateGS() {
 	/* =================== PUT YOUR CODE HERE ====================== */
-	updateWC();
-	propagateBBRoot();
+	this->propagateBBRoot();
+	this->updateWC();
+	
 	/* =================== END YOUR CODE HERE ====================== */
 }
 
@@ -439,12 +474,11 @@ void Node::draw() {
 		BBoxGL::draw( m_containerWC);
 	}
 	/* =================== PUT YOUR CODE HERE ====================== */
-	rs->push(RenderState::modelview); // push current matrix into modelview stack
-	// T es la transformación asociada al nodo
-	rs->addTrfm(RenderState::modelview, m_placement);//mete la transformación del nodo en el que estamos
-	
 	if(m_gObject){ //en caso de ser hoja-->dibujar
+		rs->push(RenderState::modelview); // push current matrix into modelview stack
+		rs->addTrfm(RenderState::modelview, m_placementWC);//
 		m_gObject->draw();
+		rs->pop(RenderState::modelview); // pop matrix from modelview stack to current
 	}
 	else{
 		for (auto n: m_children){
@@ -452,7 +486,7 @@ void Node::draw() {
 		}
 	}
 
-	rs->pop(RenderState::modelview); // pop matrix from modelview stack to current
+	
 	/* =================== END YOUR CODE HERE ====================== */
 
 	if (prev_shader != 0) {
