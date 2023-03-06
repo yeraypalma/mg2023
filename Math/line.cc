@@ -29,7 +29,9 @@ void Line::setFromAtoB(const Vector3 & A, const Vector3 & B) {
 	if (modVec < Constants::distance_epsilon){ //ver si el vector tiene un módulo mer a la distancia minima establecida en .../Misc/constants 
 		printf("Los dos puntos estan muy cerca, puedes obtener rescultados no esperados \n");
 	}
-	m_d.normalize();//vector director unictario
+	else{
+		m_d.normalize();//vector director unictario
+	}
 	/* =================== END YOUR CODE HERE ====================== */
 }
 
@@ -57,8 +59,7 @@ float Line::paramDistance(const Vector3 & P) const {
 	}
 
 	else{
-		float numerador = m_d.dot(P-m_O),
-		denominador=m_d.dot(m_d);
+		float numerador = m_d.dot(P-m_O);
 		res= numerador/denominador;
 
 	}
