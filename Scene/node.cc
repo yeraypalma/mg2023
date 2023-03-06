@@ -419,7 +419,10 @@ void Node::updateWC() {
 
 void Node::updateGS() {
 	/* =================== PUT YOUR CODE HERE ====================== */
-	this->propagateBBRoot();
+	
+	if(this->m_parent!=0){
+		this->m_parent->propagateBBRoot();
+	}
 	this->updateWC();
 	
 	/* =================== END YOUR CODE HERE ====================== */
