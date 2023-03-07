@@ -241,6 +241,14 @@ void ShaderProgram::beforeDraw() {
 	}
 	this->send_uniform("active_lights_n", i);
 
+	// si este shader tiene la capacidad sc mete en sc su valor
+	if (this->has_capability("sc")) {
+		this->send_uniform("sc", rs->getSc());
+	}
+
+
+
+
 	mat = rs->getFrontMaterial();
 	if (mat != 0) {
 		this->send_uniform("theMaterial.diffuse", mat->getDiffuse());

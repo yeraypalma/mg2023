@@ -201,6 +201,14 @@ public:
 	 */
 	bool getBBoxDraw() const;
 
+	//////////////////////////////
+	//Funciones para el ejemplo del shacder de animación
+	/////////////////////////////
+
+	float getSc() const;
+	void setSc(float v);
+
+
 	void print() const;
 
 private:
@@ -244,4 +252,7 @@ private:
 	// SkyBox
 
 	Node *m_skybox;
+
+	//variable para ejemplo del sader de anuimación
+	float m_sc;
 };
